@@ -109,7 +109,8 @@ const Earnings = () => {
   useEffect(() => {
     if (
       document.getElementById("area-chart") &&
-      typeof ApexCharts !== "undefined"
+      typeof ApexCharts !== "undefined" &&
+      window
     ) {
       const chart = new ApexCharts(
         document.getElementById("area-chart") as any,

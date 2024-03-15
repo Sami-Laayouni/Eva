@@ -33,29 +33,17 @@ const ModifyAlgorithm = () => {
     setInNetworkSource(100 - newValue);
   };
 
-  // Common function to update slider values and background
-  const updateSlider = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setValue: React.Dispatch<React.SetStateAction<number>>
-  ) => {
-    const newValue = parseInt(event.target.value, 10);
-    setValue(newValue);
-
-    // Calculate the percentage of the slider
-    const percentage = newValue;
-    // Update the slider's background gradient
-    event.target.style.background = `linear-gradient(to right, #7c3aed ${percentage}%, #e5e7eb ${percentage}%)`;
-  };
-
   // Function to create the gradient background string
   const createGradient = (value: number) => {
     return `linear-gradient(to right, #7c3aed 0%, #7c3aed ${value}%, #e5e7eb ${value}%, #e5e7eb 100%)`;
   };
   // Function to update the slider background
   const updateSliderBackground = (id: string, value: number) => {
-    const slider = document.getElementById(id) as HTMLInputElement | null;
-    if (slider) {
-      slider.style.background = createGradient(value);
+    if (document) {
+      const slider = document.getElementById(id) as HTMLInputElement | null;
+      if (slider) {
+        slider.style.background = createGradient(value);
+      }
     }
   };
 
@@ -66,13 +54,15 @@ const ModifyAlgorithm = () => {
 
   // Effect to set the initial styles of the sliders
   useEffect(() => {
-    const setSliderBackground = (id: string, value: number) => {
-      const slider = document.getElementById(id) as HTMLInputElement;
-      slider.style.background = `linear-gradient(to right, #7c3aed ${value}%, #e5e7eb ${value}%)`;
-    };
+    if (document) {
+      const setSliderBackground = (id: string, value: number) => {
+        const slider = document.getElementById(id) as HTMLInputElement;
+        slider.style.background = `linear-gradient(to right, #7c3aed ${value}%, #e5e7eb ${value}%)`;
+      };
 
-    setSliderBackground("in-network-slider", inNetworkSource);
-    setSliderBackground("out-of-network-slider", outOfNetworkSource);
+      setSliderBackground("in-network-slider", inNetworkSource);
+      setSliderBackground("out-of-network-slider", outOfNetworkSource);
+    }
   }, [inNetworkSource, outOfNetworkSource, setOutOfNetworkSource]);
 
   return (
