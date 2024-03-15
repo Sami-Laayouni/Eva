@@ -39,22 +39,24 @@ export default function SupabaseProvider({
   const DeSo = new DesoAPI();
 
   useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(() => {
-      router.refresh();
-    });
+    if (supabase && localStorage) {
+      const {
+        data: { subscription },
+      } = supabase.auth.onAuthStateChange(() => {
+        router.refresh();
+      });
 
-    supabase.auth.getSession().then((res) => {
-      const desoActivePublicKey = localStorage.getItem("deso_user_key");
-      if (!res.data.session || !desoActivePublicKey) {
-        setIsOpen(true);
-      }
-    });
+      supabase.auth.getSession().then((res) => {
+        const desoActivePublicKey = localStorage.getItem("deso_user_key");
+        if (!res.data.session || !desoActivePublicKey) {
+          setIsOpen(true);
+        }
+      });
 
-    return () => {
-      subscription.unsubscribe();
-    };
+      return () => {
+        subscription.unsubscribe();
+      };
+    }
   }, [router, supabase]);
 
   async function signUpWithDeso() {
