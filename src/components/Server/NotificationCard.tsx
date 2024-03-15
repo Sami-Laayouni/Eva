@@ -139,8 +139,8 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
       {value?.PostHasBeingMentioned && value?.DiamondsRewarded == 0 ? (
         <section className="border-[0.5px] border-primary rounded-xl p-4 flex w-full mt-2 ">
           <Post
-            name={null}
-            username={null}
+            name={""}
+            username={""}
             loading={false}
             postData={value?.PostHasBeingMentioned}
             key={value?.PostHasBeingMentioned}
