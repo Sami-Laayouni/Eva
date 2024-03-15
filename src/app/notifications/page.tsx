@@ -83,7 +83,7 @@ const Notifications = () => {
         ) : (
           <>
             {Array.from({ length: 5 })?.map((i: any) => (
-              <NotificationCard key={i} loading={true} key={i} />
+              <NotificationCard key={i} loading={true} />
             ))}
           </>
         )}

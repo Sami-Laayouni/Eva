@@ -46,6 +46,7 @@ const Discover = () => {
                 username={""}
                 name={""}
                 bottom={true}
+                key={i}
               />
             ))}
           </div>

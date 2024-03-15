@@ -46,7 +46,7 @@ const Explore = () => {
   return (
     <>
       <h1 className="text-xl font-bold p-6 backdrop-blur z-10 bg-background/10 sticky top-0">
-        Explore "{id.charAt(0).toUpperCase() + id.slice(1)}"
+        Explore &quot;{id.charAt(0).toUpperCase() + id.slice(1)}&quot;
       </h1>
       <section className="ml-10 mr-10 mt-4">
         <SearchBar type="normal" num={3} />
