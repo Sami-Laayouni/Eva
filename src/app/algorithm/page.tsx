@@ -165,7 +165,7 @@ const ModifyAlgorithm = () => {
             placeholder="Enter the weight of likes"
             value={likeWeight}
             onChange={(e) => {
-              setLikeWeight(e.target.value);
+              setLikeWeight(e.target.value as any);
             }}
           />
           <h3 className="mt-2">Weight of Diamonds</h3>
@@ -175,7 +175,7 @@ const ModifyAlgorithm = () => {
             placeholder="Enter the weight of diamonds"
             value={diamondWeight}
             onChange={(e) => {
-              setDiamondWeight(e.target.value);
+              setDiamondWeight(e.target.value as any);
             }}
           />
           <h3 className="mt-2">Weight of Comments</h3>
@@ -185,7 +185,7 @@ const ModifyAlgorithm = () => {
             placeholder="Enter the weight of comments"
             value={commentWeight}
             onChange={(e) => {
-              setCommentWeight(e.target.value);
+              setCommentWeight(e.target.value as any);
             }}
           />
           <h3 className="mt-2">Weight of Reposts</h3>
@@ -195,7 +195,7 @@ const ModifyAlgorithm = () => {
             placeholder="Enter the weight of reposts"
             value={repostWeight}
             onChange={(e) => {
-              setRepostWeight(e.target.value);
+              setRepostWeight(e.target.value as any);
             }}
           />
           <h3 className="mt-2">Weight of Media (Image, Videos)</h3>
@@ -205,7 +205,7 @@ const ModifyAlgorithm = () => {
             placeholder="Enter the weight of media"
             value={mediaWeight}
             onChange={(e) => {
-              setMediaWeight(e.target.value);
+              setMediaWeight(e.target.value as any);
             }}
           />
         </div>
@@ -231,7 +231,7 @@ const ModifyAlgorithm = () => {
             value={botWeight}
             max={0}
             onChange={(e) => {
-              setBotWeight(e.target.value);
+              setBotWeight(e.target.value as any);
             }}
           />
 

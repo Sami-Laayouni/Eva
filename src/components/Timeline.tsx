@@ -6,8 +6,8 @@ import Post from "./Client/Post";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import DesoAPI from "@/lib/deso";
 
-function rankPosts(posts) {
-  const rankedPosts = posts.map((post) => {
+function rankPosts(posts: any) {
+  const rankedPosts = posts.map((post: any) => {
     let score = 0;
     const commentWeight = 2;
     const repostWeight = 1;
@@ -37,7 +37,7 @@ function rankPosts(posts) {
   });
 
   // Sort posts based on the assigned scores in descending order
-  rankedPosts.sort((a, b) => b.score - a.score);
+  rankedPosts.sort((a: any, b: any) => b.score - a.score);
   console.log(rankedPosts);
   return rankedPosts;
 }
@@ -53,7 +53,7 @@ const Timeline = () => {
   async function getFollowingPosts() {
     const user = localStorage.getItem("deso_user_key");
 
-    const response = await DeSo.getFollowingFeed(user as string, "");
+    const response = (await DeSo.getFollowingFeed(user as string, "")) as any;
     setPosts(response.PostsFound);
   }
 
@@ -85,7 +85,7 @@ const Timeline = () => {
     }
   }
 
-  async function getPosts(typex) {
+  async function getPosts(typex: any) {
     if (typex) {
       if (typex == "following") {
         getFollowingPosts();

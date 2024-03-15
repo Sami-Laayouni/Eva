@@ -7,7 +7,7 @@ import Post from "@/components/Client/Post";
 import DesoAPI from "@/lib/deso";
 
 const Discover = () => {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const DeSo = new DesoAPI();
   useEffect(() => {
@@ -15,8 +15,7 @@ const Discover = () => {
       const user = localStorage.getItem("deso_user_key");
 
       const response = await DeSo.getTopFeed(user as string, [""]);
-      console.log(response);
-      setPosts(response);
+      setPosts(response as any);
       setLoading(false);
     }
     if (localStorage) {

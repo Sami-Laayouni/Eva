@@ -19,8 +19,8 @@ const CreateCommunity: React.FC = () => {
   const [NFTs, setNFTs] = useState<any>(null);
   const [restrictionType, setRestrictionType] = useState<any>(null);
 
-  const inputFile = useRef(null);
-  const inputFile2 = useRef(null);
+  const inputFile = useRef(null) as any;
+  const inputFile2 = useRef(null) as any;
   const router = useRouter();
 
   const [profile, setProfile] = useState("");
@@ -31,8 +31,7 @@ const CreateCommunity: React.FC = () => {
   useEffect(() => {
     async function getUserNFTs() {
       const key = localStorage.getItem("deso_user_key");
-      const response = await DeSo.getNFTForUser(key);
-      console.log(response?.data?.NFTsMap);
+      const response = (await DeSo.getNFTForUser(key as string)) as any;
 
       setNFTs(response?.data?.NFTsMap);
     }
@@ -42,27 +41,27 @@ const CreateCommunity: React.FC = () => {
   }, []);
 
   // Set the selected file as the image url
-  const changeHandler = async (event) => {
+  const changeHandler = async (event: any) => {
     //Get the selected image
     const img = event.target.files[0];
-    const link = await getImageUrl(img);
+    const link = (await getImageUrl(img)) as string;
     setProfile(link);
   };
 
   // Set the selected file as the image url
-  const changeHandler2 = async (event) => {
+  const changeHandler2 = async (event: any) => {
     //Get the selected image
     const img = event.target.files[0];
 
     const link = await getImageUrl(img);
 
-    setBanner(link);
+    setBanner(link as any);
   };
 
-  async function getImageUrl(result) {
+  async function getImageUrl(result: any) {
     const user = localStorage.getItem("deso_user_key");
     const JWT = await DeSo.getJwt();
-    const link = await DeSo.uploadImage(user, JWT, result);
+    const link = await DeSo.uploadImage(user as string, JWT as string, result);
     return link?.ImageURL;
   }
   return (
@@ -144,7 +143,7 @@ const CreateCommunity: React.FC = () => {
                   </p>
                   <ul className="list-none overflow-y-hidden overflow-x-scroll whitespace-nowrap">
                     {NFTs &&
-                      Object.values(NFTs)?.map(function (value, index) {
+                      Object.values(NFTs)?.map(function (value: any, index) {
                         if (value.PostEntryResponse.ImageURLs) {
                           return (
                             <li

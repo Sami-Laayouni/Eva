@@ -6,7 +6,7 @@ import DesoAPI from "@/lib/deso";
 import NotificationCard from "@/components/Server/NotificationCard";
 
 const Notifications = () => {
-  const { unreadNotifications } = useContext(ModalContext);
+  const { unreadNotifications } = useContext(ModalContext) as any;
   const [notificationCount, setNotificationCount] = unreadNotifications;
   const [notifications, setNotifications] = useState<any>([]);
   const Deso = new DesoAPI();
@@ -14,7 +14,7 @@ const Notifications = () => {
   async function getNotifications() {
     const key = localStorage.getItem("deso_user_key");
 
-    const notifications = await Deso.getNotifications(key, 15, -1);
+    const notifications = await Deso.getNotifications(key as string, 15, -1);
 
     notifications?.Notifications?.map(function (value: any) {
       const notification = {
@@ -36,13 +36,16 @@ const Notifications = () => {
         Extradata: value?.Metadata.AffectedPublicKeys[1].Metadata,
       };
 
-      setNotifications((notifications) => [...notifications, notification]);
+      setNotifications((notifications: any) => [
+        ...notifications,
+        notification,
+      ]);
     });
   }
 
-  async function sawNotifications(count) {
+  async function sawNotifications(count: any) {
     const key = localStorage.getItem("deso_user_key");
-    await Deso.sawNotifications(key, count);
+    await Deso.sawNotifications(key as string, count);
   }
 
   useEffect(() => {
@@ -83,7 +86,7 @@ const Notifications = () => {
         ) : (
           <>
             {Array.from({ length: 5 })?.map((i: any) => (
-              <NotificationCard key={i} loading={true} />
+              <NotificationCard value={{}} key={i} loading={true} />
             ))}
           </>
         )}

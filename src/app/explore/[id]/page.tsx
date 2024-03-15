@@ -52,7 +52,7 @@ const Explore = () => {
         <SearchBar type="normal" num={3} />
         <h2 className="mt-6 text-xl mb-2">Creators For You</h2>
         {people &&
-          people?.map(function (value) {
+          people?.map(function (value: any) {
             return (
               <FollowUser
                 id={value.PublicKeyBase58Check}

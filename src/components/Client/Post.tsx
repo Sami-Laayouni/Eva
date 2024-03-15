@@ -27,7 +27,21 @@ const ALLOWED_SOURCES = [
   "nftz.mypinata.cloud",
 ];
 
-const Post = ({ loading, postData, username, name, bottom }) => {
+interface PostProps {
+  loading: boolean;
+  postData: any;
+  username: string;
+  name: string;
+  bottom: boolean;
+}
+
+const Post: React.FC<PostProps> = ({
+  loading,
+  postData,
+  username,
+  name,
+  bottom,
+}) => {
   // Format the time the post was posted
 
   const [readMore, setReadMore] = useState(false);
@@ -84,7 +98,7 @@ const Post = ({ loading, postData, username, name, bottom }) => {
     } else {
       const date = new Date(timestamp / 1e6);
       const options = { month: "short", day: "numeric" };
-      return date.toLocaleDateString("en-US", options);
+      return date.toLocaleDateString("en-US", options as any);
     }
   }
 
@@ -174,7 +188,7 @@ const Post = ({ loading, postData, username, name, bottom }) => {
         }
       );
 
-    const handleClick = (e) => {
+    const handleClick = (e: any) => {
       e.preventDefault(); // Prevent the default link action
       const target = e.target as HTMLElement;
 
@@ -210,7 +224,7 @@ const Post = ({ loading, postData, username, name, bottom }) => {
         `likepost${postData?.PostHashHex}`
       );
       let valueLike = Number(likePost?.innerText);
-      if (likePost?.color == "white") {
+      if (likePost?.style?.color == "white") {
         valueLike += 1;
       } else {
         valueLike -= 1;
@@ -295,7 +309,7 @@ const Post = ({ loading, postData, username, name, bottom }) => {
             </div>
             <div className="cursor-pointer">
               <BsThreeDots
-                onClick={(e) => {
+                onClick={(e: any) => {
                   e.preventDefault();
                   const extraData = document.getElementById(
                     `postExtraOption${postData?.PostHashHex}`
@@ -327,7 +341,7 @@ const Post = ({ loading, postData, username, name, bottom }) => {
                             try {
                               const response = await DeSo.hidePost(
                                 postData?.PostHashHex,
-                                user
+                                user as any
                               );
                               document
                                 .getElementById(postData?.PostHashHex)

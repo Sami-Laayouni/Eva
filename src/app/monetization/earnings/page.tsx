@@ -112,7 +112,7 @@ const Earnings = () => {
       typeof ApexCharts !== "undefined"
     ) {
       const chart = new ApexCharts(
-        document.getElementById("area-chart"),
+        document.getElementById("area-chart") as any,
         options
       );
       chart.render();
@@ -153,7 +153,7 @@ const Earnings = () => {
           className=" w-full bg-transparent  rounded-lg shadow p-4 md:p-6"
         >
           <ApexCharts
-            options={options}
+            options={options as any}
             series={options.series}
             type="area"
             height="100%"

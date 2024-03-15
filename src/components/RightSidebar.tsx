@@ -27,7 +27,9 @@ const RightSidebar: React.FC = () => {
   const [trendingTags, setTrendingTags] = useState<any>();
   const [recommendedUsers, setRecommendedUsers] = useState<any>();
   const [loggedIn, setLoggedIn] = useState<boolean>(true);
-  const { unreadNotifications, communityData } = useContext(ModalContext);
+  const { unreadNotifications, communityData } = useContext(
+    ModalContext
+  ) as any;
   const [notificationCount, setNotificationCount] = unreadNotifications;
   const [communData] = communityData;
 
@@ -52,7 +54,7 @@ const RightSidebar: React.FC = () => {
         localStorage.setItem("userInfo", userData);
 
         setUser({
-          Profile: response.Profile || {
+          Profile: (response.Profile as any) || {
             Username: "",
             DESOBalanceNanos: 0,
             ExtraData: { DisplayName: "" },
@@ -129,7 +131,7 @@ const RightSidebar: React.FC = () => {
 
   // Get unread notification counts (pretty-self-explanatory)
   async function getUnreadNotifications(id: string) {
-    const response = await Deso.getUnreadNotifications(id);
+    const response = (await Deso.getUnreadNotifications(id)) as any;
     setNotificationCount(response.data);
   }
 

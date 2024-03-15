@@ -1,7 +1,12 @@
 import { HiOutlineHashtag } from "react-icons/hi2";
 import Link from "next/link";
 
-const Hashtags = ({ value, loading }) => {
+interface HashtagsProps {
+  value: any; // Assuming 'value' can be either a string or an array of strings
+  loading: any; // Assuming 'loading' is a boolean
+}
+
+const Hashtags: React.FC<HashtagsProps> = ({ value, loading }) => {
   if (loading) {
     return (
       <div className="hover:bg-background/20 p-4 last:rounded-b-xl transition duration-200 cursor-pointer">

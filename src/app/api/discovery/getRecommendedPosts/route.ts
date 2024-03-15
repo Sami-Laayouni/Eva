@@ -13,39 +13,39 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { data: userData, error: userError } =
       await supabaseClient.auth.getUser();
 
-    const { data: userInfo, error: selectError } = await supabase
-      .from("profiles")
-      .select()
-      .eq("id", userData.user.id);
+    if (userData.user) {
+      const { data: userInfo, error: selectError } = (await supabase
+        .from("profiles")
+        .select()
+        .eq("id", userData.user.id as any)) as any;
 
-    console.log(userInfo);
-    let interest;
+      let interest;
 
-    if (userInfo[0].interests) {
-      interest = JSON.parse(userInfo[0].interests).sub[0];
-    } else {
-      interest = "Deso";
+      if (userInfo as any[0]) {
+        if (userInfo[0].interests) {
+          interest = JSON.parse(userInfo[0].interests).sub[0];
+        } else {
+          interest = "Deso";
+        }
+
+        console.log(interest);
+
+        // Fetch data from the external API
+        const outerCircle = `https://cloutavista.com/posts?text=${interest}&result_type=latest&size=10&min_likes=1&page=1`;
+        const outerCircleResponse = await fetch(outerCircle);
+
+        if (!outerCircleResponse.ok) {
+          throw new Error(`Failed to fetch data`);
+        }
+
+        const outerCircleData = await outerCircleResponse.json();
+
+        return new NextResponse(JSON.stringify(outerCircleData.data), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
     }
-
-    console.log(interest);
-
-    // Fetch data from the external API
-    const outerCircle = `https://cloutavista.com/posts?text=${interest}&result_type=latest&size=10&min_likes=1&page=1`;
-    const outerCircleResponse = await fetch(outerCircle);
-
-    console.log(outerCircleResponse);
-
-    if (!outerCircleResponse.ok) {
-      throw new Error(`Failed to fetch data`);
-    }
-
-    const outerCircleData = await outerCircleResponse.json();
-    console.log(outerCircleData);
-
-    return new NextResponse(JSON.stringify(outerCircleData.data), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
   } catch (error) {
     console.error("Error fetching data:", error);
     return new NextResponse(

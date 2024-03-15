@@ -15,7 +15,15 @@ const ALLOWED_SOURCES = [
   "nftz.mypinata.cloud",
 ];
 
-function NotificationCard({ loading, value }) {
+interface NotificationCardProps {
+  loading: any; // Consider using 'boolean' for better type safety if 'loading' is indeed a boolean
+  value: any; // Specify a more specific type instead of 'any' if possible
+}
+
+const NotificationCard: React.FC<NotificationCardProps> = ({
+  loading,
+  value,
+}) => {
   if (loading) {
     return (
       <div className="w-full h-20 bg-gray-800 rounded-xl mt-5 animate-pulse"></div>
@@ -25,7 +33,7 @@ function NotificationCard({ loading, value }) {
   if (value?.NotificationType == "DAO_COIN_LIMIT_ORDER") {
     return null;
   }
-  const includesImages = ALLOWED_SOURCES.some((value) =>
+  const includesImages = ALLOWED_SOURCES.some((value: any) =>
     value?.NotificationPerformer?.ExtraData?.NFTProfilePictureUrl?.includes(
       value
     )
@@ -105,7 +113,7 @@ function NotificationCard({ loading, value }) {
           : value?.NotificationType == "BASIC_TRANSFER"
           ? `transferred $${(
               (value?.AmountRewarded / 10000000000) *
-              JSON.parse(localStorage.getItem("desoValue"))
+              JSON.parse(localStorage.getItem("desoValue") as any)
                 .USDCentsPerDeSoExchangeRate
             ).toFixed(1)} to you`
           : value?.NotificationType == "FOLLOW"
@@ -115,7 +123,7 @@ function NotificationCard({ loading, value }) {
           : value?.NotificationType == "CREATOR_COIN"
           ? `invested $${(
               (value?.AmountRewarded / 10000000000) *
-              JSON.parse(localStorage.getItem("desoValue"))
+              JSON.parse(localStorage.getItem("desoValue") as any)
                 .USDCentsPerDeSoExchangeRate
             ).toFixed(1)} in you`
           : value?.NotificationType == "LIKE"
@@ -144,6 +152,6 @@ function NotificationCard({ loading, value }) {
       )}
     </section>
   );
-}
+};
 
 export default NotificationCard;

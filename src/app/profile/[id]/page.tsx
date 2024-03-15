@@ -92,12 +92,12 @@ const Profile = () => {
   }
 
   async function getUserNFTs(id: string) {
-    const response = await DeSo.getMemories(id);
+    const response = (await DeSo.getMemories(id)) as any;
     extractPostEntryResponses(response.data.NFTsMap);
     setPosts(extractPostEntryResponses(response?.data?.NFTsMap));
   }
 
-  function extractPostEntryResponses(dataObject) {
+  function extractPostEntryResponses(dataObject: any) {
     // Initialize an array to hold the PostEntryResponses
     const postEntryResponses = [];
 
@@ -141,18 +141,19 @@ const Profile = () => {
   function isUserRealOrBot(userPosts: any) {
     // Check for unrealistic posting frequency
     const hasUnrealisticPostingFrequency = (posts: any) => {
-      const timestamps = posts.map((post) => post.TimestampNanos);
+      const timestamps = posts.map((post: any) => post.TimestampNanos);
       const timeDifferences = timestamps
         .slice(1)
-        .map((time, i) => (time - timestamps[i]) / 1e9);
+        .map((time: any, i: any) => (time - timestamps[i]) / 1e9);
       const averageTimeDifference =
-        timeDifferences.reduce((a, b) => a + b, 0) / timeDifferences.length;
+        timeDifferences.reduce((a: any, b: any) => a + b, 0) /
+        timeDifferences.length;
 
       // Consider unrealistic if posts are too frequent or too evenly spaced
       return (
         Math.abs(averageTimeDifference) < 600 ||
         timeDifferences.every(
-          (diff) => Math.abs(diff - averageTimeDifference) < 5
+          (diff: any) => Math.abs(diff - averageTimeDifference) < 5
         )
       );
     };
@@ -160,14 +161,15 @@ const Profile = () => {
     // Check for generic or nonsensical content
     const hasGenericOrNonsensicalContent = (posts: any) => {
       return posts.every(
-        (post) => post.Body.length < 20 || post.Body.includes("lorem ipsum")
+        (post: any) =>
+          post.Body.length < 20 || post.Body.includes("lorem ipsum")
       );
     };
 
     // Check for lack of engagement (likes, comments, reposts)
     const lacksEngagement = (posts: any) => {
       return posts.every(
-        (post) =>
+        (post: any) =>
           post.LikeCount === 0 &&
           post.CommentCount === 0 &&
           post.RepostCount === 0
@@ -176,13 +178,15 @@ const Profile = () => {
 
     // Check for overly promotional content or links in posts
     const hasPromotionalContent = (posts: any): boolean => {
-      return posts.every((post) => /http[s]?:\/\/[^\s]+/.test(post.Body));
+      return posts.every((post: any) => /http[s]?:\/\/[^\s]+/.test(post.Body));
     };
 
     // Check if the profile has diverse content
     function hasDiverseContent(posts: any): boolean {
       const uniqueContents = new Set(
-        posts.map((post) => post.Body).filter((body) => body.length > 0)
+        posts
+          .map((post: any) => post.Body)
+          .filter((body: any) => body.length > 0)
       );
 
       return uniqueContents.size >= posts.length * 0.3; // Expect at least 50% unique content
@@ -191,7 +195,7 @@ const Profile = () => {
     // Basic heuristic: checks if there's a reasonable balance of likes, comments, and reposts
     function hasRealInteractions(posts: any): boolean {
       const totalInteractions = posts.reduce(
-        (acc, post) =>
+        (acc: any, post: any) =>
           acc + post.LikeCount + post.CommentCount + post.RepostCount,
         0
       );
@@ -201,24 +205,16 @@ const Profile = () => {
     function hasNaturalTiming(posts: any): boolean {
       if (posts.length < 2) return true; // Not enough data to judge
 
-      const timestamps = posts.map((post) => post.TimestampNanos).sort();
+      const timestamps = posts.map((post: any) => post.TimestampNanos).sort();
       const intervals = timestamps
         .slice(1)
-        .map((time, i) => (time - timestamps[i]) / 1e9 / 60); // Convert to minutes
+        .map((time: any, i: any) => (time - timestamps[i]) / 1e9 / 60); // Convert to minutes
       const minInterval = Math.min(...intervals);
       const maxInterval = Math.max(...intervals);
 
       // Expect intervals not to be too regular and have some variability
       return maxInterval / minInterval > 5;
     }
-
-    console.log(hasUnrealisticPostingFrequency(userPosts));
-    console.log(hasGenericOrNonsensicalContent(userPosts));
-    console.log(lacksEngagement(userPosts));
-    console.log(hasPromotionalContent(userPosts));
-    console.log(!hasDiverseContent(userPosts));
-    console.log(!hasNaturalTiming(userPosts));
-    console.log(!hasRealInteractions(userPosts));
 
     const isBot =
       hasUnrealisticPostingFrequency(userPosts) ||
@@ -252,8 +248,8 @@ const Profile = () => {
               );
             }
             if (
-              JSON.parse(localStorage.getItem("userInfo"))?.Profile?.Username ==
-              id
+              JSON.parse(localStorage.getItem("userInfo") as string)?.Profile
+                ?.Username == id
             ) {
               setIsUser(true);
             }
@@ -283,7 +279,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (profileData && posts && followed) {
-      if ((followed as number) >= 500) {
+      if ((followed as any) >= 500) {
         const realOrBot = isUserRealOrBot(posts);
         setBotReal(realOrBot);
 
@@ -385,6 +381,7 @@ const Profile = () => {
               key={i}
               username={""}
               name={""}
+              bottom={true}
             />
           ))}
         </div>
@@ -460,7 +457,7 @@ const Profile = () => {
 
               {/* Subscribe Button */}
               {followed &&
-                (followed as number) >= 500 &&
+                (followed as any) >= 500 &&
                 !isUser &&
                 botReal != "Bot" &&
                 fraud?.verdict == false && (

@@ -6,7 +6,12 @@ import FollowUser from "./FollowUser";
 import Hashtags from "./Hashtags";
 import { useRouter } from "next/navigation";
 
-const SearchBar = ({ num, type }) => {
+interface SearchBarProps {
+  num: number;
+  type: string;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ num, type }) => {
   const [items, setItems] = useState<any[]>([]);
   const [tags, setTags] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +20,9 @@ const SearchBar = ({ num, type }) => {
 
   async function getSearchInfo() {
     const user = localStorage.getItem("deso_user_key");
-    const value = document.getElementById("searchBox").value as string;
+    const searchBox = document.getElementById("searchBox") as HTMLInputElement;
+
+    const value: string = searchBox.value;
     const SERVER_ENDPOINT =
       process.env.SERVER_ENDPOINT || "http://localhost:3000";
     if (type != "communities") {
@@ -60,7 +67,7 @@ const SearchBar = ({ num, type }) => {
               type == "communities" ? "for communities" : ""
             }`}
             maxLength={100}
-            onKeyDown={(event) => {
+            onKeyDown={(event: any) => {
               if (event.key === "Enter") {
                 router.push(`/explore/${event.target.value}`);
               }

@@ -31,7 +31,12 @@ interface DeSoResponse {
   };
 }
 
-function ComposePost({ type, postData }) {
+interface ComposePostProps {
+  type: string;
+  postData?: any; // Assuming postData might not always be required, making it optional
+}
+
+const ComposePost: React.FC<ComposePostProps> = ({ type, postData }) => {
   const DeSo = new DesoAPI();
   const [profilePic, setProfilePic] = useState<string>(
     "/assets/fallback/pfp.png"
@@ -43,7 +48,7 @@ function ComposePost({ type, postData }) {
   const [images, setImages] = useState<any>([]);
   const [link, setLink] = useState("");
 
-  const inputFile = useRef(null);
+  const inputFile = useRef(null) as any;
 
   /* Used to submit a post to the DeSo blockchain 
   as well as our Supabase database for recommendation 
@@ -52,7 +57,7 @@ function ComposePost({ type, postData }) {
   async function submitPost(formData: FormData) {
     const text = formData.get("postText") as string;
     const deso_key = localStorage.getItem("deso_user_key") as string;
-    let url;
+    let url: any;
 
     if (link) {
       const endUrl = getYoutubeId(link);
@@ -190,8 +195,19 @@ function ComposePost({ type, postData }) {
 
     setImages([]);
     setLink("");
-    document.getElementById("embedLink").style.display = "none";
-    document.getElementById("picker").style.display = "none";
+    const embedLinkElement = document.getElementById(
+      "embedLink"
+    ) as HTMLElement | null;
+    if (embedLinkElement) {
+      embedLinkElement.style.display = "none";
+    }
+
+    const pickerElement = document.getElementById(
+      "picker"
+    ) as HTMLElement | null;
+    if (pickerElement) {
+      pickerElement.style.display = "none";
+    }
   }
 
   /* Function to increase the height of the textarea when 
@@ -214,22 +230,26 @@ function ComposePost({ type, postData }) {
   };
 
   //Set the selected file as the image url
-  const changeHandler = (event) => {
+  const changeHandler = (event: any) => {
     //Get the selected image
     const img = event.target.files[0];
     getImageUrl(img);
   };
 
-  async function getImageUrl(result) {
+  async function getImageUrl(result: any) {
     const user = localStorage.getItem("deso_user_key");
     const JWT = await DeSo.getJwt();
-    const link = await DeSo.uploadImage(user as string, JWT, result);
-    setImages((images) => [...images, link.ImageURL]);
+    const link = (await DeSo.uploadImage(
+      user as string,
+      JWT as string,
+      result
+    )) as any;
+    setImages((images: any) => [...images, link.ImageURL]);
   }
 
   // Remove image from URL
-  const removeImage = (url) => {
-    setImages(images.filter((image) => image !== url));
+  const removeImage = (url: any) => {
+    setImages(images.filter((image: any) => image !== url));
   };
 
   type EmojiObject = {
@@ -250,23 +270,30 @@ function ComposePost({ type, postData }) {
     }
   };
 
-  function showPicker() {
-    if (document.getElementById("picker").style.display != "block") {
-      document.getElementById("picker").style.display = "block";
-    } else {
-      document.getElementById("picker").style.display = "none";
+  function showPicker(): void {
+    const pickerElement = document.getElementById(
+      "picker"
+    ) as HTMLElement | null;
+
+    if (pickerElement !== null) {
+      pickerElement.style.display =
+        pickerElement.style.display !== "block" ? "block" : "none";
     }
   }
 
-  function showEmbed() {
-    if (document.getElementById("embedLink").style.display != "block") {
-      document.getElementById("embedLink").style.display = "block";
-    } else {
-      document.getElementById("embedLink").style.display = "none";
+  function showEmbed(): void {
+    const embedLinkElement = document.getElementById(
+      "embedLink"
+    ) as HTMLElement | null;
+
+    if (embedLinkElement !== null) {
+      embedLinkElement.style.display =
+        embedLinkElement.style.display !== "block" ? "block" : "none";
     }
   }
 
-  function getYoutubeId(link) {
+
+  function getYoutubeId(link: any) {
     if (link) {
       const regExp =
         /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -356,7 +383,7 @@ function ComposePost({ type, postData }) {
           </div>
         </div>
         {images &&
-          images?.map(function (value) {
+          images?.map(function (value: any) {
             return (
               <div key={value} className="relative ">
                 <img
@@ -376,7 +403,7 @@ function ComposePost({ type, postData }) {
           })}
         <div id="picker" className="hidden ">
           {" "}
-          <Picker theme="dark" onEmojiClick={onEmojiClick} />
+          <Picker theme={"dark" as any} onEmojiClick={onEmojiClick} />
         </div>
         <Input
           id="embedLink"
@@ -388,6 +415,6 @@ function ComposePost({ type, postData }) {
       </form>
     </div>
   );
-}
+};
 
 export default ComposePost;

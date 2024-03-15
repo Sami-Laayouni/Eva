@@ -14,7 +14,6 @@ const SinglePost = () => {
     const user = localStorage.getItem("deso_user_key");
     const response = await DeSo.getSinglePost(id, user as string);
     setData(response?.PostFound);
-    console.log(response?.PostFound);
   }
 
   useEffect(() => {
@@ -48,7 +47,7 @@ const SinglePost = () => {
             bottom={true}
           />
           <ComposePost postData={data} type="comment" />
-          {data?.Comments?.map(function (value) {
+          {data?.Comments?.map(function (value: any) {
             return (
               <Post
                 loading={false}

@@ -1,6 +1,16 @@
 import Link from "next/link";
 
-function CommunityCard({ joined, loading, communityData }) {
+interface CommunityCardProps {
+  joined: boolean;
+  loading: boolean;
+  communityData: any;
+}
+
+const CommunityCard: React.FC<CommunityCardProps> = ({
+  joined,
+  loading,
+  communityData,
+}) => {
   if (loading) {
     return (
       <div className="bg-slate-800 animate-pulse w-full rounded-xl overflow-hidden shadow-lg mt-4">
@@ -38,6 +48,6 @@ function CommunityCard({ joined, loading, communityData }) {
       </div>
     </Link>
   );
-}
+};
 
 export default CommunityCard;

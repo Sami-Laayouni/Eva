@@ -49,7 +49,7 @@ const Communities = () => {
           Communities you are in
         </h1>
         {communities ? (
-          communities?.map(function (value) {
+          communities?.map(function (value: any) {
             return (
               <CommunityCard
                 joined={true}

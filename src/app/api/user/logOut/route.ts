@@ -8,13 +8,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       console.log("Sign-out response:", response);
     });
 
-    return new NextResponse(
-      { body: "Success" },
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new NextResponse(JSON.stringify({ text: "Worked" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("Error updating:", error);
     return new NextResponse(JSON.stringify({ message: "Method Not Allowed" }), {

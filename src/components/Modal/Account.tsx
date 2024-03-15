@@ -25,7 +25,9 @@ const Account: React.FC = () => {
 
   useEffect(() => {
     if (localStorage && localStorage.getItem("userInfo")) {
-      const userData = JSON.parse(localStorage.getItem("userInfo")).Profile;
+      const userData = JSON.parse(
+        localStorage.getItem("userInfo") as string
+      ).Profile;
       if (userData?.Description) {
         setBio(userData?.Description);
       }
@@ -59,11 +61,11 @@ const Account: React.FC = () => {
     }
 
     const response = await Deso.updateInfo(
-      user,
+      user as string,
       username,
       bio,
       fr * 100,
-      profile,
+      profile as any,
       food,
       location,
       website,

@@ -277,8 +277,8 @@ class DesoAPI {
   /* ==== Get User Notifications ===== */
   async getNotifications(
     user: string,
-    NumToFetch: Number,
-    FetchStartIndex: string
+    NumToFetch: number,
+    FetchStartIndex: number
   ) {
     if (!user) return;
 
@@ -289,10 +289,10 @@ class DesoAPI {
         FetchStartIndex: FetchStartIndex,
         FilteredOutNotificationCategories: {},
       };
-      const response = await this?.getClient().notification.getNotifications(
+      const response = (await this?.getClient().notification.getNotifications(
         request
-      );
-      return response.data;
+      )) as any;
+      return response?.data;
     } catch (error) {
       console.log(error);
       return error;
@@ -591,7 +591,7 @@ class DesoAPI {
         PublicKeyBase58Check: user,
         JWT: data,
         BlockPublicKeyBase58Check: blockedUser,
-        Unblock: Unblock,
+        Unblock: Unblock as boolean,
       };
       const response = await this.getClient().user.blockPublicKey(request);
       return response;
@@ -602,7 +602,7 @@ class DesoAPI {
   }
 
   // Upload Image
-  async uploadImage(user: string, JWT: string, base64: string) {
+  async uploadImage(user: string, JWT: string, base64: File) {
     if (!base64) return;
     const request = {
       UserPublicKeyBase58Check: user,

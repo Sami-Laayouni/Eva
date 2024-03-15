@@ -94,7 +94,7 @@ const LeftSidebar = () => {
   const [loggedIn, setLoggedIn] = useState<boolean>(true);
   const [isHidden, setIsHidden] = useState<boolean>(true);
 
-  const { unreadNotifications } = useContext(ModalContext);
+  const { unreadNotifications } = useContext(ModalContext) as any;
   const [notificationCount] = unreadNotifications;
   const Deso = new DesoAPI();
   const router = useRouter();
@@ -102,7 +102,7 @@ const LeftSidebar = () => {
   useEffect(() => {
     if (localStorage && localStorage.getItem("userInfo")) {
       setUsername(
-        JSON.parse(localStorage.getItem("userInfo"))?.Profile?.Username
+        JSON.parse(localStorage.getItem("userInfo") as any)?.Profile?.Username
       );
     }
   }, []);

@@ -8,7 +8,7 @@ function Channels() {
   const router = useRouter();
   const [data, setCommunityData] = useState<any>(null);
   const id = usePathname().split("/")[2];
-  const { communityData } = useContext(ModalContext);
+  const { communityData } = useContext(ModalContext) as any;
   const [community, setCommunity] = communityData;
 
   useEffect(() => {

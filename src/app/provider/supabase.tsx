@@ -31,7 +31,7 @@ export default function SupabaseProvider({
   const [supabase] = useState(() => createPagesBrowserClient());
   const [isOpen, setIsOpen] = useState(false);
 
-  const { onboard } = useContext(ModalContext);
+  const { onboard } = useContext(ModalContext) as any;
 
   const [onboardOpen, setOnboardOpen] = onboard;
 
