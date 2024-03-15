@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import style from "./algorithm.module.css";
 
 const ModifyAlgorithm = () => {
   // State for the first slider
@@ -33,28 +34,9 @@ const ModifyAlgorithm = () => {
     setInNetworkSource(100 - newValue);
   };
 
-  // Function to create the gradient background string
-  const createGradient = (value: number) => {
-    return `linear-gradient(to right, #7c3aed 0%, #7c3aed ${value}%, #e5e7eb ${value}%, #e5e7eb 100%)`;
-  };
-  // Function to update the slider background
-  const updateSliderBackground = (id: string, value: number) => {
-    if (document) {
-      const slider = document.getElementById(id) as HTMLInputElement | null;
-      if (slider) {
-        slider.style.background = createGradient(value);
-      }
-    }
-  };
-
-  useState(() => {
-    updateSliderBackground("in-network-slider", inNetworkSource);
-    updateSliderBackground("out-of-network-slider", outOfNetworkSource);
-  });
-
   // Effect to set the initial styles of the sliders
   useEffect(() => {
-    if (document) {
+    if (document && document.getElementById("in-network-slider")) {
       const setSliderBackground = (id: string, value: number) => {
         const slider = document.getElementById(id) as HTMLInputElement;
         slider.style.background = `linear-gradient(to right, #7c3aed ${value}%, #e5e7eb ${value}%)`;
@@ -101,7 +83,7 @@ const ModifyAlgorithm = () => {
               step={10}
               value={inNetworkSource}
               onChange={handleInNetworkSliderChange}
-              className="slider"
+              className={style.slider}
             />
             <label
               htmlFor="in-network-slider"
@@ -130,7 +112,7 @@ const ModifyAlgorithm = () => {
               step={10}
               value={outOfNetworkSource}
               onChange={handleOutOfNetworkSliderChange}
-              className="slider"
+              className={style.slider}
             />
             <label
               htmlFor="out-of-network-slider"
@@ -234,40 +216,6 @@ const ModifyAlgorithm = () => {
           <Button className="mt-4 text-white mb-4">Save Changes</Button>
         </div>
       </section>
-      <style jsx>{`
-        .slider {
-          -webkit-appearance: none;
-          width: 80%;
-          height: 5px;
-          border-radius: 5px;
-          background: #e5e7eb;
-          outline: none;
-          padding: 0;
-          display: inline-block;
-          margin: 0;
-          margin-left: 5px;
-          margin-right: 5px;
-          vertical-align: middle;
-        }
-        .slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-          background: #7c3aed;
-          cursor: pointer;
-          transition: background 0.3s ease-in-out;
-        }
-        .slider::-moz-range-thumb {
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-          background: #7c3aed;
-          cursor: pointer;
-          transition: background 0.3s ease-in-out;
-        }
-      `}</style>
     </>
   );
 };

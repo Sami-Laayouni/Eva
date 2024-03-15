@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
-import ApexCharts from "react-apexcharts";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
+
 import Link from "next/link";
 
 const Earnings = () => {
@@ -105,20 +107,6 @@ const Earnings = () => {
       show: false,
     },
   };
-
-  useEffect(() => {
-    if (
-      document.getElementById("area-chart") &&
-      typeof ApexCharts !== "undefined" &&
-      window
-    ) {
-      const chart = new ApexCharts(
-        document.getElementById("area-chart") as any,
-        options
-      );
-      chart.render();
-    }
-  }, [timeRange, options]);
 
   return (
     <>
