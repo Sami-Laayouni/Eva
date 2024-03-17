@@ -304,32 +304,34 @@ const RightSidebar: React.FC = () => {
         )}
 
         {/* Community Channels */}
-        <div className="flex flex-col rounded-xl bg-neutral-900 my-2">
-          <ul className="p-4">
-            {communData?.channels?.map(function (value: any) {
-              return (
-                <li
-                  key={value.name}
-                  className="mb-1 cursor-pointer hover:bg-neutral-800 rounded-xl p-2"
-                >
-                  <HiOutlineHashtag className="inline-block align-middle mr-2  " />
-                  <span>{value.name}</span>
-                </li>
-              );
-            })}
-            {!communData && (
-              <>
-                {" "}
-                {Array.from({ length: 2 })?.map((i: any) => (
-                  <div
-                    key={i}
-                    className="w-full h-5 bg-neutral-900 animate-pulse"
-                  ></div>
-                ))}
-              </>
-            )}
-          </ul>
-        </div>
+        {false && (
+          <div className="flex flex-col rounded-xl bg-neutral-900 my-2">
+            <ul className="p-4">
+              {communData?.channels?.map(function (value: any) {
+                return (
+                  <li
+                    key={value.name}
+                    className="mb-1 cursor-pointer hover:bg-neutral-800 rounded-xl p-2"
+                  >
+                    <HiOutlineHashtag className="inline-block align-middle mr-2  " />
+                    <span>{value.name}</span>
+                  </li>
+                );
+              })}
+              {!communData && (
+                <>
+                  {" "}
+                  {Array.from({ length: 2 })?.map((i: any) => (
+                    <div
+                      key={i}
+                      className="w-full h-5 bg-neutral-900 animate-pulse"
+                    ></div>
+                  ))}
+                </>
+              )}
+            </ul>
+          </div>
+        )}
 
         {/* Members of community */}
         <div className="flex flex-col rounded-xl bg-neutral-900 my-2">
