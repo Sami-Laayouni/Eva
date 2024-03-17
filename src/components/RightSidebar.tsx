@@ -332,25 +332,33 @@ const RightSidebar: React.FC = () => {
             </ul>
           </div>
         )}
-
-        {/* Members of community */}
-        <div className="flex flex-col rounded-xl bg-neutral-900 my-2">
-          <h3 className="font-bold text-primaryText text-xl my-4 px-4">
-            Community Admins
-          </h3>
-          {Array.from({ length: 1 })?.map((i: any) => (
-            <FollowUser id="" name="" username="" key={i} loading={true} />
-          ))}
-          <h3 className="font-bold text-primaryText text-xl my-4 px-4">
-            Community Members
-          </h3>
-          <section className="h-full max-h-[60vh] overflow-x-hidden overflow-y-auto">
-            {Array.from({ length: 4 })?.map((i: any) => (
-              <FollowUser id="" name="" username="" key={i} loading={true} />
-            ))}
-          </section>
-        </div>
-
+        {false && (
+          <>
+            {/* Members of community */}
+            <div className="flex flex-col rounded-xl bg-neutral-900 my-2">
+              <h3 className="font-bold text-primaryText text-xl my-4 px-4">
+                Community Admins
+              </h3>
+              {Array.from({ length: 1 })?.map((i: any) => (
+                <FollowUser id="" name="" username="" key={i} loading={true} />
+              ))}
+              <h3 className="font-bold text-primaryText text-xl my-4 px-4">
+                Community Members
+              </h3>
+              <section className="h-full max-h-[60vh] overflow-x-hidden overflow-y-auto">
+                {Array.from({ length: 4 })?.map((i: any) => (
+                  <FollowUser
+                    id=""
+                    name=""
+                    username=""
+                    key={i}
+                    loading={true}
+                  />
+                ))}
+              </section>
+            </div>
+          </>
+        )}
         {/* Advanced   */}
         {loggedIn && !pathName.includes("discover") && (
           <>
