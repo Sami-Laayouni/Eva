@@ -90,6 +90,8 @@ export default function SupabaseProvider({
 
         const { error } = await supabase.auth.signInWithPassword(credentials);
         if (error) {
+          setIsOpen(false);
+          router.push("/");
           return toast.error(error.message);
         } else {
           setIsOpen(false);
@@ -100,6 +102,7 @@ export default function SupabaseProvider({
         console.log("Error user not logged in on DeSo");
       }
     } else {
+      alert("not exists");
       if (desoActivePublicKey) {
         const credentials = {
           email: `${desoActivePublicKey}@evasocial.app`,
@@ -113,25 +116,23 @@ export default function SupabaseProvider({
         };
 
         const { error } = await supabase.auth.signUp(credentials);
-
+        console.log(error);
         if (error) {
           return toast.error(error.message);
         } else {
+          alert("eeeee");
           const SERVER_ENDPOINT =
-            process.env.SERVER_ENDPOINT || "http://localhost:3000";
+            process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
 
-          const response = await fetch(
-            `${SERVER_ENDPOINT}/api/user/storeDeSoKey`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                deso_key: desoActivePublicKey,
-              }),
-            }
-          );
+          await fetch(`${SERVER_ENDPOINT}/api/user/storeDeSoKey`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              deso_key: desoActivePublicKey,
+            }),
+          });
           setIsOpen(false);
           setOnboardOpen(true);
         }

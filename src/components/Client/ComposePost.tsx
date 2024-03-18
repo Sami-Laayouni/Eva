@@ -90,7 +90,7 @@ const ComposePost: React.FC<ComposePostProps> = ({ type, postData }) => {
           /* Submit a post to Supabase */
 
           const SERVER_ENDPOINT =
-            process.env.SERVER_ENDPOINT || "http://localhost:3000";
+            process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
 
           const response2 = await fetch(
             `${SERVER_ENDPOINT}/api/post/submitPost`,
@@ -291,7 +291,6 @@ const ComposePost: React.FC<ComposePostProps> = ({ type, postData }) => {
         embedLinkElement.style.display !== "block" ? "block" : "none";
     }
   }
-
 
   function getYoutubeId(link: any) {
     if (link) {

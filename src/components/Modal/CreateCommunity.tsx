@@ -272,7 +272,8 @@ const CreateCommunity: React.FC = () => {
                   setCurrent((currentPage += 1));
                 } else {
                   const SERVER_ENDPOINT =
-                    process.env.SERVER_ENDPOINT || "http://localhost:3000";
+                    process.env.NEXT_PUBLIC_SERVER_ENDPOINT ||
+                    "http://localhost:3000";
 
                   const communityPromise = new Promise<unknown>(
                     async (resolve, reject) => {

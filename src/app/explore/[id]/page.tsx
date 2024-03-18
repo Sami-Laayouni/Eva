@@ -18,7 +18,7 @@ const Explore = () => {
     const user = localStorage.getItem("deso_user_key");
     const response = await Deso.searchUsername(id, 3, user);
     const SERVER_ENDPOINT =
-      process.env.SERVER_ENDPOINT || "http://localhost:3000";
+      process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
     const posts = await fetch(`${SERVER_ENDPOINT}/api/discovery/searchPosts`, {
       method: "POST",
       headers: {

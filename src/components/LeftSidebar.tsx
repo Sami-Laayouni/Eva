@@ -162,8 +162,8 @@ const LeftSidebar = () => {
                         <Image
                           src={"/assets/icons/logo.png"}
                           alt="Eva Social Logo"
-                          width={60}
-                          height={60}
+                          width={63}
+                          height={63}
                         />
                       )}
                     </>
@@ -193,7 +193,8 @@ const LeftSidebar = () => {
                     const user = localStorage.getItem("deso_user_key");
                     await Deso.signOut(user as string);
                     const SERVER_ENDPOINT =
-                      process.env.SERVER_ENDPOINT || "http://localhost:3000";
+                      process.env.NEXT_PUBLIC_SERVER_ENDPOINT ||
+                      "http://localhost:3000";
 
                     await fetch(`${SERVER_ENDPOINT}/api/user/logOut`, {
                       method: "POST",

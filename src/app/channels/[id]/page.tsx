@@ -15,7 +15,7 @@ function Channels() {
     async function getCommunity() {
       console.log(id);
       const SERVER_ENDPOINT =
-        process.env.SERVER_ENDPOINT || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
       const response = await fetch(
         `${SERVER_ENDPOINT}/api/community/getSingleCommunity`,
         {

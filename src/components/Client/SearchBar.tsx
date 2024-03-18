@@ -24,7 +24,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ num, type }) => {
 
     const value: string = searchBox.value;
     const SERVER_ENDPOINT =
-      process.env.SERVER_ENDPOINT || "http://localhost:3000";
+      process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
     if (type != "communities") {
       if (value.length > 2) {
         // Get trending usernames

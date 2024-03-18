@@ -72,7 +72,7 @@ const RightSidebar: React.FC = () => {
   const getRecommendedCreators = cache(async () => {
     try {
       const SERVER_ENDPOINT =
-        process.env.SERVER_ENDPOINT || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
 
       const response = await fetch(
         `${SERVER_ENDPOINT}/api/discovery/getRecommendedFollowings`,
@@ -104,7 +104,7 @@ const RightSidebar: React.FC = () => {
   const getTrendingTags = cache(async () => {
     try {
       const SERVER_ENDPOINT =
-        process.env.SERVER_ENDPOINT || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
 
       const response = await fetch(
         `${SERVER_ENDPOINT}/api/discovery/trendingTags`,

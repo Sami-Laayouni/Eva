@@ -164,7 +164,7 @@ const OnboardModal: React.FC = () => {
   const getRecommendedCreators = async () => {
     try {
       const SERVER_ENDPOINT =
-        process.env.SERVER_ENDPOINT || "http://localhost:3000";
+        process.env.NEXT_PUBLIC_SERVER_ENDPOINT || "http://localhost:3000";
 
       const response = await fetch(
         `${SERVER_ENDPOINT}/api/discovery/getRecommendedFollowings`,
@@ -252,13 +252,13 @@ const OnboardModal: React.FC = () => {
             : ""
         );
         setFirst(
-          parsedUserInfo?.Profile?.ExtraData?.DisplayName.split(" ")[0]
-            ? parsedUserInfo?.Profile?.ExtraData?.DisplayName.split(" ")[0]
+          parsedUserInfo?.Profile?.ExtraData?.DisplayName?.split(" ")[0]
+            ? parsedUserInfo?.Profile?.ExtraData?.DisplayName?.split(" ")[0]
             : ""
         );
         setLast(
-          parsedUserInfo?.Profile?.ExtraData?.DisplayName.split(" ")[1]
-            ? parsedUserInfo?.Profile?.ExtraData?.DisplayName.split(" ")[1]
+          parsedUserInfo?.Profile?.ExtraData?.DisplayName?.split(" ")[1]
+            ? parsedUserInfo?.Profile?.ExtraData?.DisplayName?.split(" ")[1]
             : ""
         );
         setFood(
@@ -554,7 +554,8 @@ const OnboardModal: React.FC = () => {
                       );
 
                       const SERVER_ENDPOINT =
-                        process.env.SERVER_ENDPOINT || "http://localhost:3000";
+                        process.env.NEXT_PUBLIC_SERVER_ENDPOINT ||
+                        "http://localhost:3000";
 
                       const response2 = await fetch(
                         `${SERVER_ENDPOINT}/api/user/updateUserPrefences`,
